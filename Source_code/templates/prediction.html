@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retinal Disease Detection</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 0; 
+            background-color: #f4f4f4; 
+            margin:0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        /* Centered Form */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        #uploadForm {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px; /* Increased width to accommodate image and file input side by side */
+        }
+
+        .upload-section {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Space between file input and image preview */
+            margin-bottom: 20px; /* Space between upload section and button */
+        }
+
+        input[type="file"] {
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%; /* Make button full width */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Image Preview Styling */
+        #imagePreview {
+            max-width: 200px; /* Limit image preview size */
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none; /* Hidden by default */
+        }
+
+        /* Prediction Styling */
+        .prediction {
+            margin: 10px 0;
+            padding: 2px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            align-content: center;
+        }
+
+        .confidence-bar {
+            height: 10px;
+            background: #eee;
+            margin: 5px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: #4CAF50;
+        }
+
+        #results {
+            margin-top: 10px;
+        } 
+        h1{
+            text-align: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/prediction">Predictions</a>
+        <a href="/evaluation">Model Evaluation</a>
+        <a href="/flowchart">Flowchart</a>
+    </div>
+    <div>
+    <h1 style="text-align: center; margin-top: 100px;">Multi Class Retinal Disease Classifier</h1>
+    <div class="form-container">
+        
+        <form id="uploadForm">
+            <div class="upload-section">
+                <input type="file" name="file" id="fileInput" accept="image/*" required>
+                <img id="imagePreview" src="#" alt="Image Preview">
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+    </div>
+    <div id="results"></div>
+
+    <script>
+        // Display the uploaded image preview
+        document.getElementById('fileInput').onchange = function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Handle form submission
+        document.getElementById('uploadForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            // Validate if file is an image
+            if (!file) {
+                alert("Please select an image file.");
+                return;
+            }
+
+            const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+            if (!validImageTypes.includes(file.type)) {
+                alert("Invalid file type. Please upload an image (JPG, PNG, or GIF).");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert(`Error: ${data.error}`);
+                    return;
+                }
+
+                let html = '<h2 style="text-align:center;">Analysis Results:</h2>';
+                data.predictions.forEach((pred, index) => {
+                    html += `
+                    <div class="prediction">
+                        <h3>#${index + 1}: ${pred.class}</h3>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" 
+                                 style="width: ${parseFloat(pred.confidence_percent)}%"></div>
+                        </div>
+                        <p>Confidence: ${pred.confidence_percent}</p>
+                    </div>`;
+                });
+                
+                document.getElementById('results').innerHTML = html;
+
+            } catch (error) {
+                alert('Error communicating with server');
+            }
+        };
+    </script>
+</body>
+</html>

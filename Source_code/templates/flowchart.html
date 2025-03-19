@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flowchart</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        img{
+            padding: 0px;
+            padding-left:300px;
+            height:570px;
+            width: 1000px;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/prediction">Predictions</a>
+        <a href="/evaluation">Model Evaluation</a>
+        <a href="/flowchart">Flowchart</a>
+    </div>
+
+    <div class="content">
+        <img src="{{ url_for('static', filename='flowchart-1.png') }}" alt="Project Flowchart">
+    </div>
+</body>
+</html>

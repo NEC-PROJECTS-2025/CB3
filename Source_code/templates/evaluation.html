@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Evaluation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        /* Content Styling */
+        .content {
+            padding: 100px 20px 20px;
+            margin: 0 auto;
+            width: 90%; /* Ensures content spans nearly the full page */
+            max-width: 1200px; /* Restricts content to a readable width */
+            text-align: justify; /* Spreads content evenly across left and right */
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center; /* Center the heading */
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        /* Table Styling */
+        .metrics-table {
+            margin: 20px auto; /* Centers the table */
+            border-collapse: collapse;
+            width: 80%; /* Adjust table width */
+            max-width: 900px;
+            text-align: left;
+        }
+
+        .metrics-table th, .metrics-table td {
+            border: 1px solid #ccc;
+            padding: 12px 15px;
+            text-align: center; /* Center-align the content in cells */
+        }
+
+        .metrics-table th {
+            background-color: #004d99;
+            color: white;
+        }
+
+        .metrics-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/prediction">Predictions</a>
+        <a href="/evaluation">Model Evaluation</a>
+        <a href="/flowchart">Flowchart</a>
+    </div>
+
+    <div class="content">
+        <h1>Model Evaluation</h1>
+        <p>
+            The evaluation of the proposed ResNet-101 model is based on precision, recall, F1-score, and accuracy. These metrics provide a comprehensive understanding of the model's performance in classifying 32 different types of retinal diseases using the EyeNet dataset.
+        </p>
+        <table class="metrics-table">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                <tr>
+                    <td>ResNet-101</td>
+                    <td>98.75%</td>
+                    <td>99%</td>
+                    <td>99%</td>
+                    <td>99.5%</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            The table above demonstrates that the ResNet-101 model achieves exceptional performance, with nearly perfect precision, recall, and F1-score. The model's high accuracy of 98.75% on the validation set indicates its robustness in classifying retinal diseases, making it a reliable tool for early diagnosis and treatment planning. These results highlight the effectiveness of the proposed deep learning approach in improving the accuracy and efficiency of retinal disease classification compared to traditional diagnostic methods.
+        </p>
+    </div>
+</body>
+</html>

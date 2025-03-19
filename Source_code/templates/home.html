@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #575757;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .header {
+            background-color: #B1F0F7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 30px;
+            color: #333333;
+            font-weight: bold;
+            flex-grow: 1;
+            font-family: 'Times New Roman', Times, serif;
+            
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+        .content img{
+            height: 550px;
+            width: 1519px;
+        }
+        p{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            text-align: center;
+            margin: 0px;
+            font-weight: 500;
+            background-color: #B1F0F7;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Project Logo" class="logo">
+        <div class="title"> OPTIMIZED DEEP LEARNING <br>FOR MULTI-CLASS RETINAL DISEASE CLASSIFICATION USING RESNET-101
+
+        </div> 
+    </div>
+    <p>Team Members:&nbsp; 1.Kattiri Santhoshkumar &nbsp; 2.Talari Babu &nbsp; 3.Madana Venkata Thirumala</p>
+
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/prediction">Predictions</a>
+        <a href="/evaluation">Model Evaluation</a>
+        <a href="/flowchart">Flowchart</a>
+    </div>
+
+    <div class="content">
+        <img src="{{ url_for('static', filename='s-1.webp') }}" alt="Project Logo" class="logo">
+    </div>
+</body>
+</html>
